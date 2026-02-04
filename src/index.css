@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Prata&display=swap");
+@import "tailwindcss";
+@plugin "daisyui";
+
+body {
+  font-family: "Outfit", sans-serif;
+}
+
+@theme {
+  --font-primary: prata, san-serif;
+}
+
+.container {
+  width: 1280px;
+}
