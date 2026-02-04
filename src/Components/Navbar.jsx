@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { assets } from "../assets/frontend_assets/assets";
 
@@ -21,7 +21,9 @@ const Navbar = () => {
   return (
     <div className="flex justify-between items-center h-20 px-6 md:px-6 lg:px-0  relative">
       {/* logo */}
-      <img src={assets.logo} className="w-36" alt="logo" />
+      <Link to="/">
+        <img src={assets.logo} className="w-36" alt="logo" />
+      </Link>
 
       {/* desktop menu */}
       <div className="hidden md:flex items-center gap-5">
