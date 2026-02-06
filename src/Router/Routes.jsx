@@ -4,10 +4,11 @@ import Home from "../Pages/Home";
 import Collection from "../Pages/Collection";
 import About from "../Pages/About";
 import Contact from "../Pages/Contact";
+import ProductDetails from "../Pages/ProductDetails";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: "",
     Component: MainLayout,
     children: [
       {
@@ -17,6 +18,10 @@ export const router = createBrowserRouter([
       {
         path: "collection",
         Component: Collection,
+      },
+      {
+        path: "product/:id",
+        Component: ProductDetails,
       },
       {
         path: "about",
