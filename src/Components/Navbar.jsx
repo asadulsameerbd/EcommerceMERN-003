@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { assets } from "../assets/frontend_assets/assets";
 import Search from "./Search";
+import { SellerContext } from "../Context/SellerContext";
 
 const linkClass = ({ isActive }) =>
   `relative px-3 py-2 block
@@ -18,6 +19,7 @@ const linkClass = ({ isActive }) =>
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const { cartItem } = useContext(SellerContext);
 
   return (
     <div className="flex justify-between items-center h-20 px-3 md:px-0   relative">
@@ -57,12 +59,14 @@ const Navbar = () => {
         />
 
         {/* cart */}
-        <div className="relative cursor-pointer">
+        <Link to="cart" className="relative cursor-pointer">
           <img src={assets.cart_icon} className="w-5" alt="cart" />
-          <span className="absolute -right-2 -bottom-2 h-4 w-4 flex items-center justify-center rounded-full bg-black text-white text-[10px]">
-            10
-          </span>
-        </div>
+          {cartItem.length > 0 && (
+            <span className="absolute -right-2 -bottom-2 h-4 w-4 flex items-center justify-center rounded-full bg-black text-white text-[10px]">
+              {cartItem.length}
+            </span>
+          )}
+        </Link>
 
         {/* hamburger */}
         <button className="md:hidden text-xl" onClick={() => setOpen(true)}>

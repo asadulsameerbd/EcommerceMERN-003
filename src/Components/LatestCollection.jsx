@@ -16,7 +16,7 @@ const LatestCollection = () => {
     <div className="my-12">
       <div className="text-center py-8 text-3xl">
         <Title text1={"Latest"} text2={"Collections"} />
-        <p className="w-3/4 mx-auto text-[16px] text-gray-500">
+        <p className="w-3/4 mx-auto text-sm md:text-[16px] text-gray-500">
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the.
         </p>

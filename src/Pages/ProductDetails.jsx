@@ -2,10 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { SellerContext } from "../Context/SellerContext";
 import RelatedProducts from "../Components/RelatedProducts";
+import Swal from "sweetalert2";
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const { products } = useContext(SellerContext);
+  const { products, addToCart } = useContext(SellerContext);
+  const [selectedSize, setSelectedSize] = useState("");
 
   const product = products.find((item) => item._id === id);
   const [mainImg, setMainImg] = useState(product?.image[0]);
@@ -13,8 +15,32 @@ const ProductDetails = () => {
   useEffect(() => {
     if (product) {
       setMainImg(product?.image[0]);
+      setSelectedSize("");
     }
   }, [product]);
+
+  const handleAddtoCart = () => {
+    if (product.sizes?.length > 0 && !selectedSize) {
+      Swal.fire({
+        title: "Please Select A Size",
+        icon: "error",
+        draggable: false,
+      });
+      return;
+    }
+
+    addToCart({
+      ...product,
+      selectedSize: selectedSize || null,
+    });
+    console.log(selectedSize);
+
+    Swal.fire({
+      title: "Your Product Is Added to The Cart",
+      icon: "success",
+      draggable: true,
+    });
+  };
 
   if (!product) {
     return <div>Product Not Found</div>;
@@ -54,17 +80,28 @@ const ProductDetails = () => {
           <div>
             <h1 className="text-gray-500">Select Size</h1>
             <div className="flex gap-2">
-              {product.sizes.map((size, i) => (
-                <button className="btn my-2" key={i}>
-                  {size}
-                </button>
-              ))}
+              {product.sizes?.length > 0 && (
+                <div className="flex gap-3">
+                  {product.sizes?.map((size, i) => (
+                    <button
+                      onClick={() => setSelectedSize(size)}
+                      className={`${selectedSize === size ? "bg-black text-white rounded-lg" : "bg-white btn-soft text-black"} btn my-2`}
+                      key={i}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
           {/* add to cart */}
           <div className="flex gap-5 items-center">
-            <button className="bg-black/90 text-white p-4 btn btn-soft ">
+            <button
+              onClick={handleAddtoCart}
+              className="bg-black/90 text-white p-4 btn btn-soft "
+            >
               Add to Cart
             </button>
             <button className=" text-black  bg-white p-4 btn btn-soft ">

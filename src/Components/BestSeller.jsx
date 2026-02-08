@@ -15,7 +15,7 @@ const BestSeller = () => {
     <div className="my-12 ">
       <div className="text-center py-5">
         <Title text1={"Best"} text2={"Seller"} />
-        <p className="w-3/4 mx-auto text-[16px] text-gray-600">
+        <p className="w-3/4 mx-auto text-sm md:text-[16px] text-gray-600">
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the.
         </p>
