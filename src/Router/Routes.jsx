@@ -6,6 +6,7 @@ import About from "../Pages/About";
 import Contact from "../Pages/Contact";
 import ProductDetails from "../Pages/ProductDetails";
 import Cart from "../Pages/Cart";
+import PlaceOrder from "../Pages/PlaceOrder";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
       {
         path: "cart",
         Component: Cart,
+      },
+      {
+        path: "place-order",
+        Component: PlaceOrder,
       },
     ],
   },

@@ -9,26 +9,32 @@ const SellerProvider = (props) => {
 
   // add to cart
   const addToCart = (product) => {
-    const exists = cartItem.find((item) => item.id === product.id);
-
-    if (exists) {
-      setCartItem(
-        cartItem.map((item) =>
-          item.id === product.id ? { ...item, qty: item.qty + 1 } : item,
-        ),
+    setCartItem((prev) => {
+      const exists = prev.find(
+        (item) =>
+          item.id === product._id && item.selectedSize === product.selectedSize,
       );
-    } else {
-      setCartItem([
-        ...cartItem,
+
+      if (exists) {
+        return prev.map((item) =>
+          item.id === product._id && item.selectedSize === product.selectedSize
+            ? { ...item, qty: item.qty + 1 }
+            : item,
+        );
+      }
+
+      return [
+        ...prev,
         {
           ...product,
+          id: product._id,
           qty: 1,
           image: Array.isArray(product.image)
             ? product.image[0]
             : product.image,
         },
-      ]);
-    }
+      ];
+    });
   };
 
   // increase quantity
@@ -49,6 +55,28 @@ const SellerProvider = (props) => {
     );
   };
 
+  // delete cart
+
+  const removeItem = (id) => {
+    setCartItem((prev) => prev.filter((item) => item.id !== id));
+    return;
+  };
+
+  // calculated price
+
+  const calculateTotals = (cartItem) => {
+    const subtotal = cartItem.reduce(
+      (sum, item) => sum + item.price * item.qty,
+      0,
+    );
+    const totals = subtotal + delivery_fee;
+    return {
+      totals,
+      delivary_fee: delivery_fee,
+      subtotal,
+    };
+  };
+
   const value = {
     currency,
     delivery_fee,
@@ -57,6 +85,8 @@ const SellerProvider = (props) => {
     addToCart,
     increaseQTY,
     decreaseQty,
+    removeItem,
+    calculateTotals,
   };
 
   return (

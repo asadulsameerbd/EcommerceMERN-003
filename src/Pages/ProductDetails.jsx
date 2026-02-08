@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import { SellerContext } from "../Context/SellerContext";
 import RelatedProducts from "../Components/RelatedProducts";
 import Swal from "sweetalert2";
@@ -104,9 +104,12 @@ const ProductDetails = () => {
             >
               Add to Cart
             </button>
-            <button className=" text-black  bg-white p-4 btn btn-soft ">
+            <Link
+              to="/place-order"
+              className=" text-black  bg-white p-4 btn btn-soft "
+            >
               Buy Now
-            </button>
+            </Link>
           </div>
 
           {/* divider */}
