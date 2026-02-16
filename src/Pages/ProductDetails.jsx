@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { SellerContext } from "../Context/SellerContext";
 import RelatedProducts from "../Components/RelatedProducts";
 import Swal from "sweetalert2";
@@ -8,6 +8,7 @@ const ProductDetails = () => {
   const { id } = useParams();
   const { products, addToCart } = useContext(SellerContext);
   const [selectedSize, setSelectedSize] = useState("");
+  const navigate = useNavigate();
 
   const product = products.find((item) => item._id === id);
   const [mainImg, setMainImg] = useState(product?.image[0]);
@@ -45,6 +46,28 @@ const ProductDetails = () => {
   if (!product) {
     return <div>Product Not Found</div>;
   }
+
+  // buy btn
+
+  const handleBuyNow = () => {
+    if (product.sizes?.length > 0 && !selectedSize) {
+      Swal.fire({
+        title: "Please Select A Size",
+        icon: "error",
+        draggable: false,
+      });
+      return;
+    }
+
+    // Cart- add
+    addToCart({
+      ...product,
+      selectedSize: selectedSize || null,
+    });
+
+    // Checkout page-
+    navigate("/cart");
+  };
 
   return (
     <div className="md:container border-t border-gray-300 pt-10 px-4 lg:px-20">
@@ -104,12 +127,12 @@ const ProductDetails = () => {
             >
               Add to Cart
             </button>
-            <Link
-              to="/place-order"
+            <button
+              onClick={handleBuyNow}
               className=" text-black  bg-white p-4 btn btn-soft "
             >
               Buy Now
-            </Link>
+            </button>
           </div>
 
           {/* divider */}

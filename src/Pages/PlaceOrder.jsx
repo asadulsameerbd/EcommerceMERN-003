@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
 import Title from "../Components/Title";
 import { SellerContext } from "../Context/SellerContext";
+import { useNavigate } from "react-router";
 
 const PlaceOrder = () => {
   const { calculateTotals, cartItem, currency } = useContext(SellerContext);
   const { delivary_fee, subtotal, totals } = calculateTotals(cartItem);
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col md:flex-row justify-between md:gap-5 px-3 md:px-0">
@@ -125,6 +127,7 @@ const PlaceOrder = () => {
 
           {/* Place Order Button */}
           <button
+            onClick={() => navigate("/orders")}
             type="submit"
             className="w-full mt-4 bg-black text-white py-3 rounded-md hover:bg-gray-800 transition"
           >

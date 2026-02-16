@@ -7,6 +7,7 @@ import Contact from "../Pages/Contact";
 import ProductDetails from "../Pages/ProductDetails";
 import Cart from "../Pages/Cart";
 import PlaceOrder from "../Pages/PlaceOrder";
+import Order from "../Pages/Order";
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
       {
         path: "place-order",
         Component: PlaceOrder,
+      },
+      {
+        path: "Orders",
+        Component: Order,
       },
     ],
   },
